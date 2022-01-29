@@ -1,5 +1,5 @@
 import { ExpressContext } from "apollo-server-express";
-import { headerHandler } from "../../util/auth";
+import { authHandler, headerHandler } from "../../util/auth";
 
 describe("Test Auth Utils", () => {
   let testContext: ExpressContext;
@@ -7,7 +7,7 @@ describe("Test Auth Utils", () => {
   beforeEach(
     () =>
       (testContext = {
-        req: { headers: { authorization: "test" } },
+        req: { headers: { authorization: "valid" } },
       } as ExpressContext)
   );
 
@@ -23,5 +23,11 @@ describe("Test Auth Utils", () => {
     const token = headerHandler(testContext);
 
     expect(token.authScope).toBe(testContext.req.headers.authorization);
+  });
+
+  it("tests authHandler with valid token", () => {
+    const result = authHandler(testContext.req.headers.authorization as string);
+
+    expect(result).toBeTruthy();
   });
 });
