@@ -8,7 +8,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js",
+    "start": "node build/main.js",
     "codegen": "graphql-codegen"
   },
   "author": "farawaysouthwest",

@@ -1,5 +1,4 @@
 import { gql } from "apollo-server";
-import { GraphQLSchema } from "graphql";
 
 // Schema abstraction.
 export default gql`
