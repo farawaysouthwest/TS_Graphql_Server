@@ -5,7 +5,7 @@ import {
   User,
 } from "../../typeGen/resolvers-types";
 import { Icontext } from "../serverFactory";
-import { authHandler } from "../util/auth";
+import { checkAuth } from "../util/auth";
 
 function getUsers(
   parent: ResolversParentTypes,
@@ -13,12 +13,9 @@ function getUsers(
   context: Context<Icontext>
 ): User | undefined {
   // check auth
-  if (authHandler(context.authScope)) {
-    return context.dataSources.User.getOne(args.id);
-  }
-  return undefined;
+  return context.dataSources.User.getOne(args.id);
 }
 
 export default {
-  user: getUsers,
+  user: checkAuth(getUsers),
 };
